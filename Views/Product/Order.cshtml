@@ -1,0 +1,93 @@
+
+@model OnlineShoppingSystem.Models.Product
+
+@{
+    ViewData["Title"] = "Order Product";
+}
+
+<link rel="stylesheet"
+      href="~/css/product.css"
+      asp-append-version="true" />
+
+<div class="container">
+    <div class="product-box">
+
+        <h2 class="product-heading">Order Summary</h2>
+
+        <p class="product-subtitle">
+            Please review your product before confirming the order.
+        </p>
+
+        @if (ViewBag.Message != null)
+        {
+            <div class="alert alert-success">
+                @ViewBag.Message
+            </div>
+        }
+
+        <hr />
+
+        <div class="product-info">
+
+            <div class="product-row">
+                <span class="product-label">Product ID</span>
+                <strong class="product-value">@Model.ProductId</strong>
+            </div>
+
+            <div class="product-row">
+                <span class="product-label">Product Name</span>
+                <strong class="product-value">@Model.ProductName</strong>
+            </div>
+
+            <div class="product-row">
+                <span class="product-label">Category</span>
+                <span class="product-value">@Model.Category</span>
+            </div>
+
+            <div class="product-row">
+                <span class="product-label">Original Price</span>
+                <strong class="product-value">
+                    ₹@Model.Price.ToString("0.00")
+                </strong>
+            </div>
+
+            <div class="product-row">
+                <span class="product-label">Discount</span>
+                <span class="product-badge">
+                    @Model.DiscountPercentage% OFF
+                </span>
+            </div>
+
+            <div class="product-row">
+                <span class="product-label">Total Payable</span>
+                <strong class="product-price product-value">
+                    ₹@Model.GetDiscountedPrice().ToString("0.00")
+                </strong>
+            </div>
+
+        </div>
+
+        <form asp-action="PlaceOrder" method="post">
+
+            <input type="hidden"
+                   name="productId"
+                   value="@Model.ProductId" />
+
+            <div class="product-actions">
+
+                <button type="submit"
+                        class="btn btn-success">
+                    Confirm Order
+                </button>
+
+                <a asp-action="Index"
+                   class="btn btn-outline-secondary">
+                    Continue Shopping
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+</div>

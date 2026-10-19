@@ -1,0 +1,79 @@
+
+@model OnlineShoppingSystem.Models.Product
+
+@{
+    ViewData["Title"] = "Product Details";
+}
+
+<link rel="stylesheet"
+      href="~/css/product.css"
+      asp-append-version="true" />
+
+<div class="container">
+    <div class="product-box">
+
+        <h2 class="product-heading">Product Details</h2>
+
+        <p class="product-subtitle">
+            View complete information about your selected product.
+        </p>
+
+        <hr />
+
+        <div class="product-info">
+
+            <div class="product-row">
+                <span class="product-label">Product ID</span>
+                <strong class="product-value">@Model.ProductId</strong>
+            </div>
+
+            <div class="product-row">
+                <span class="product-label">Product Name</span>
+                <strong class="product-value">@Model.ProductName</strong>
+            </div>
+
+            <div class="product-row">
+                <span class="product-label">Category</span>
+                <span class="product-value">@Model.Category</span>
+            </div>
+
+            <div class="product-row">
+                <span class="product-label">Original Price</span>
+                <strong class="product-value">
+                    ₹@Model.Price.ToString("0.00")
+                </strong>
+            </div>
+
+            <div class="product-row">
+                <span class="product-label">Discount</span>
+                <span class="product-badge">
+                    @Model.DiscountPercentage% OFF
+                </span>
+            </div>
+
+            <div class="product-row">
+                <span class="product-label">Selling Price</span>
+                <strong class="product-price product-value">
+                    ₹@Model.GetDiscountedPrice().ToString("0.00")
+                </strong>
+            </div>
+
+        </div>
+
+        <div class="product-actions">
+
+            <a asp-action="Index"
+               class="btn btn-outline-secondary">
+                Back to Products
+            </a>
+
+            <a asp-action="Order"
+               asp-route-productId="@Model.ProductId"
+               class="btn btn-success">
+                Order Now
+            </a>
+
+        </div>
+
+    </div>
+</div>
